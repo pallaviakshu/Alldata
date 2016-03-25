@@ -1,0 +1,233 @@
+{% extends "admin_base.html" %}
+{% load staticfiles %}
+
+    {% block stylesheets %}
+    {{block.super}}
+    <!-- Bootstrap styles -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+    <!-- Generic page styles -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- blueimp Gallery styles -->
+    <link rel="stylesheet" href="{% static 'css/blueimp-gallery.min.css' %}">
+    <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
+    <link rel="stylesheet" href="{% static 'css/jquery.fileupload-ui.css' %}">
+    <!-- CSS adjustments for browsers with JavaScript disabled -->
+    <noscript><link rel="stylesheet" href="{% static 'css/jquery.fileupload-ui-noscript.css' %}"></noscript>
+{% endblock stylesheets %}
+
+{% block content %}
+
+<form method="post">
+{% csrf_token %}
+    <div class="form-group">
+        <div class="row">
+            <label class="col-md-3">
+                Product Name:
+            </label>
+            <div class="col-md-8">
+                {{ form.name }} 
+                {{ form.name.errors }}
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <label class="col-md-3">
+                Weight:
+            </label>
+            <div class="col-md-2">
+                {{ form.weight }} 
+                {{ form.weight.errors }}
+            </div>
+
+            <label class="col-md-3">
+                Shipping Charges:
+            </label>
+            <div class="col-md-2">
+                {{ form.shipping_charges }} 
+                {{ form.shipping_charges.errors }}
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <label class="col-md-3">
+                Description:
+            </label>
+            <div class="col-md-8">
+                {{ form.description }} 
+                {{ form.description.errors }}
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+    <div class="row">
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+        <input type="submit" value="Submit" class="btn btn-success" />
+        </div>
+        <div class="col-md-4">
+        </div>
+    </div>
+    </div>
+</form>
+<br />
+<div style="border: 1px solid #c3c3c3; padding:15px;">
+<form method="post">
+{% csrf_token %}
+ {{ variation_form_formset.management_form }}
+    {% for variation_form in variation_form_formset %}
+    <div class="form-group">
+        <div class="row">
+            <label class="col-md-3">
+                Color:
+            </label>
+            <div class="col-md-2">
+                {{ variation_form.color }} 
+                {{ variation_form.color.errors }}
+            </div>
+            <label class="col-md-3">
+                Price:
+            </label>
+            <div class="col-md-2">
+                {{ variation_form.price }} 
+                {{ variation_form.price.errors }}
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <label class="col-md-3">
+                Discount:
+            </label>
+            <div class="col-md-2">
+                {{ variation_form.discount }} 
+                {{ variation_form.discount.errors }}
+            </div>
+            <label class="col-md-3">
+                Sale Price:
+            </label>
+            <div class="col-md-2">
+                {{ variation_form.sale_price }} 
+                {{ variation_form.sale_price.errors }}
+            </div>
+        </div>
+    </div>
+
+    <input id="id_images" name="images" type="hidden" value="" />
+    {% endfor %}
+</form>
+<div style="border: 1px solid #c3c3c3; padding:15px;">
+<form method="post">
+{% csrf_token %}
+    <div class="form-group">
+        <div class="row">
+            <label class="col-md-3">
+                Size:
+            </label>
+            <div class="col-md-2">
+                {{ sizecount_form.size }} 
+                {{ sizecount_form.size.errors }}
+            </div>
+            <label class="col-md-3">
+                Quantity:
+            </label>
+            <div class="col-md-2">
+                {{ sizecount_form.count }} 
+                {{ sizecount_form.count.errors }}
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <label class="col-md-3">
+                Product Status:
+            </label>
+            <div class="col-md-6">
+                {{ sizecount_form.availability }} 
+                {{ sizecount_form.availability.errors }}
+            </div>
+        </div>
+    </div>
+</form>
+<div class="row" style="height:10px;">
+    <div class="pull right" style="padding:10px;"><a href="" style="color:green">Add New Size  </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="" style="color:red">Remove This Size  </a></div>
+</div>
+</div>
+<br/ > 
+<div>
+{% include 'productbase/picture_form.html' %}
+<div class="row" style="height:10px;">
+    <div class="pull right" style="padding:10px;"><a href="" style="color:green">Add New Variation  </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="" style="color:red">Remove This Variation  </a></div>
+</div>
+</div>
+</div>
+
+{% if prod_id %}
+    <input id="prod_id_id" name="prod_id_id" type="hidden" value="{{ prod_id }}" />
+{% endif %}
+{% endblock content %}
+
+{% block scripts %}
+{{block.super}}
+{% load upload_tags %}
+{% upload_js %}
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+<!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
+<script src="{% static 'js/vendor/jquery.ui.widget.js' %}"></script>
+<!-- The Templates plugin is included to render the upload/download listings -->
+<script src="{% static 'js/tmpl.min.js' %}"></script>
+<!-- The Load Image plugin is included for the preview images and image resizing functionality -->
+<script src="{% static 'js/load-image.min.js' %}"></script>
+<!-- The Canvas to Blob plugin is included for image resizing functionality -->
+<script src="{% static 'js/canvas-to-blob.min.js' %}"></script>
+<!-- Bootstrap JS is not required, but included for the responsive demo navigation -->
+
+<!-- blueimp Gallery script -->
+<script src="{% static 'js/jquery.blueimp-gallery.min.js' %}"></script>
+<!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
+<script src="{% static 'js/jquery.iframe-transport.js' %}"></script>
+<!-- The basic File Upload plugin -->
+<script src="{% static 'js/jquery.fileupload.js' %}"></script>
+<!-- The File Upload processing plugin -->
+<script src="{% static 'js/jquery.fileupload-process.js' %}"></script>
+<!-- The File Upload image preview & resize plugin -->
+<script src="{% static 'js/jquery.fileupload-image.js' %}"></script>
+<!-- The File Upload validation plugin -->
+<script src="{% static 'js/jquery.fileupload-validate.js' %}"></script>
+<!-- The File Upload user interface plugin -->
+<script src="{% static 'js/jquery.fileupload-ui.js' %}"></script>
+<!-- The main application script -->
+<script src="{% static 'js/main.js' %}"></script>
+<script src="{% static 'js/locale.js' %}"></script>
+<script src="{% static 'js/csrf.js' %}"></script>
+<!-- The XDomainRequest Transport is included for cross-domain file deletion for IE8+ -->
+<!--[if gte IE 8]>
+<script src="{{ STATIC_URL }}js/cors/jquery.xdr-transport.js"></script>
+<![endif]-->
+
+
+
+<script>
+$(document).ready(function(){
+    $("#discount").change(function(){
+        var discount = parseFloat($("#discount").val());
+        var price = parseFloat($("#price").val());
+        var sale_price = parseFloat($("#sale_price").val());
+        var discount_price = (price * discount) / 100;
+        sale_price = price - discount_price
+        $("#sale_price").val(sale_price);
+    });
+    $("#sale_price").change(function(){
+        var discount = parseFloat($("#discount").val());
+        var price = parseFloat($("#price").val());
+        var sale_price = parseFloat($("#sale_price").val());
+        discount = 1 - (sale_price / price);
+        $("#discount").val(discount * 100);
+    });
+   
+});
+</script>
+{% endblock scripts %}
