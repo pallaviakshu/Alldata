@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<body>
+
+<div ng-app="myApp" ng-controller="myCtrl">
+
+<h1>{{carename}}</h1>
+
+</div>
+
+<script>
+var app = angular.module('myApp',[]);
+app.controller('myCtrl',function($scope){
+$scope.carename = "Volvo";
+});
+</script>
+
+<p>the property "carname" was made in the controller,and can be referred to in the veiw by using the {{ }} brackets.</p>
+
+</body>
+</html>
