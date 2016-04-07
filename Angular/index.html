@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>New file</title>
+    <style>
+    form {width: 300px}
+     padding: 0px 1px;
+    </style>
+</head>
+
+<script src="angular.min.js"></script>
+<script src="script.js"></script>
+<body>
+<div ng-app="myApp" ng-init="myCol='lightblue'" data-ng-init="firstName='pallavi'">
+<div ng-controller="myCtrl"  ng-init="quantity=2;cost=4">
+    <h1>hello</h1>
+    <h2>{{message}}</h2>
+
+<p>Input something in input box</p>
+<p>Name : <input type="text" ng-model="name" placeholder="enter name"></p>
+<p>My name is <span data-ng-bind="firstName"></span></p>
+<h1>hi {{name}}</h1>
+<p class="name1">First Name: <input type="text" ng-model="firstName"></p>
+<br>
+
+<p class="name1">Last Name: <input type="text" ng-model="lastName"></p>
+<br>
+Full Name: {{firstName + " " + lastName}}
+<br>
+<form>
+<p class="name1">First Number: <input type="number" ng-model="firstNo" style ="margin-left:18px";></p>
+<br>
+<p class="name1">Second Number:<input type="number" ng-model="secondNo" style ="margin-left:5px";></p>
+<br>
+<p class="name1">Addition:<input type="numbar" ng-model="firstNo+secondNo" style ="margin-left:55px";></p>
+</form>
+<Addition of two number={{7+7}}</p>
+
+<input style="background-color:{{myCol}}" ng-model="myCol" value="{{myCol}}" style ="margin-left:100px">
+<p>Multiplication of two number</p>
+<p>total value is: {{quantity*cost}}</p>
+
+</div>
+</div>
+
+</body>
+</html>
