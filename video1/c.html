@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+
+<script src="angular.min.js"></script>
+<script src="c.js"></script>
+
+<body>
+
+<div ng-app="myApp">
+     <div ng-controller="myCtlr">
+        
+        <div class="button" ng-click="sayHi()">Click me!</div>
+       {#  <button type="button",ng-click="sayHi()">click Me!</button> #}
+
+        </div>
+</div>
+    
+<div ng-app="myApp">
+<div ng-controller="myCtlr">
+    <input type="text" ng-model="model.title">
+     <input type="text" ng-model="model.content">
+
+     <zippy title="{{model.title}}"....>
+</zippy>
+</div>
+</div>
+
+</body>
+</html>
